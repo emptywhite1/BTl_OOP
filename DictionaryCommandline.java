@@ -44,7 +44,7 @@ public class DictionaryCommandline extends DictionaryManagement {
 
         System.out.println(super.toString());
         for (int i = 0; i < arr_size; i++) {
-            System.out.printf("%d %3s %-8s %s %-10s %n", i, "|", Arr_Dictionary[i].getWord_target(), "      | ", Arr_Dictionary[i].getWord_explain());
+            System.out.printf("%d %3s %-8s %s %-10s %n", i, "|", Arr_Dictionary[i].getWord_target(), "      |", Arr_Dictionary[i].getWord_explain());
         }
     }
 
@@ -67,8 +67,7 @@ public class DictionaryCommandline extends DictionaryManagement {
 
 
         } else {
-            System.out.println("Your Word Doesnt Exist!");
-
+            suggestWord(search);
         }
     }
 
@@ -136,6 +135,24 @@ public class DictionaryCommandline extends DictionaryManagement {
         }
 
     }
-
+    public void suggestWord(String incompleteWord){
+        int icWordSize = incompleteWord.length();
+        int dataSize = Arr_Dictionary.length;
+        int[] sgList = new int[dataSize]; // suggestions list by index
+        int sgCount = 0 ;
+        for(int i=0 ; i<dataSize ; i++){
+            if(Arr_Dictionary[i].getWord_target().substring(0,icWordSize).equals(incompleteWord)){
+                sgList[sgCount] = i;
+                sgCount++;
+            }
+        }
+        if(sgCount!=0) {
+            System.out.println("Your word doesn't exist, here are some suggestions:" );
+            for (int i = 0; i < sgCount; i++) {
+                System.out.println(Arr_Dictionary[sgList[i]].getWord_target() + "\n");
+            }
+        }
+        else System.out.println("Your word doesn't exist" + "\n");
+    }
 
 }
